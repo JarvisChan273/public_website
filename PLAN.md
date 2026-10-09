@@ -136,3 +136,7 @@ Visual direction: paper and ink. Off-white background, near-black text, one acce
 - Public titles for MFIN, LLAW, COMP7802, ECOM6016, and FITE7410C.
 - The public email or profile link.
 - A custom domain, after the `github.io` site is up.
+
+## Where the enterprise exercise lives
+
+The public pages stay the static files described above. The Cloudflare service exercise is in `platform/`, and the review that keeps it separate from these pages is in [docs/architecture.md](docs/architecture.md). The pages do not call that API.

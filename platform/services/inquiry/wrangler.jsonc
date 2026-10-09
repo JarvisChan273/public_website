@@ -1,0 +1,32 @@
+{
+  "name": "studio-inquiry",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-10-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "studio-inquiry",
+      "database_id": "00000000-0000-0000-0000-000000000002",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "INQUIRY_QUEUE",
+        "queue": "studio-inquiry"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "studio-inquiry",
+        "max_batch_size": 10,
+        "max_retries": 3,
+        "dead_letter_queue": "studio-inquiry-dlq"
+      }
+    ]
+  },
+  "triggers": {
+    "crons": ["*/15 * * * *"]
+  }
+}
