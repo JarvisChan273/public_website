@@ -1,0 +1,17 @@
+{
+  "name": "studio-gateway",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-10-01",
+  "services": [
+    {
+      "binding": "CONTENT",
+      "service": "studio-content",
+      "entrypoint": "ContentService"
+    },
+    {
+      "binding": "INQUIRY",
+      "service": "studio-inquiry",
+      "entrypoint": "InquiryService"
+    }
+  ]
+}

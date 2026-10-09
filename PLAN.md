@@ -79,9 +79,9 @@ These three titles are the public catalogue titles for those codes. The page als
 
 Each current item is a name, one sentence on why it is on the desk, and a status word. The page does not host lecture notes, past papers, or exam answers.
 
-### Reach me
+### Contact
 
-One line on the entrance: a public email, a public profile, or both. Messages are not stored in this repository. A form can be added later if the line is not enough. It is not a third page.
+A fourth page, `contact.html`, linked from the header. The visitor enters a subject, an email address, and a message. The page posts those three fields to the inquiry service. It does not publish an email address of its own. Messages are stored by that service when the gateway is deployed on the same domain, not in this repository’s HTML.
 
 ## What stays off the site
 
@@ -99,11 +99,13 @@ Static files in this repository. No framework and no build step.
 index.html        entrance
 background.html   background
 learning.html     current learning
+contact.html      contact form
 styles.css        shared layout
 script.js         navigation state
+contact.js        form submit
 ```
 
-The same header sits on every page: the name, and links to Entrance, Background, and Current learning. The current page is marked in the nav.
+The same header sits on every page: the name, and links to Entrance, Background, Current learning, and Contact. The current page is marked in the nav.
 
 GitHub Pages serves the repository root. The first public URL is the `github.io` address. A custom domain can wait until the pages are up.
 
@@ -136,3 +138,7 @@ Visual direction: paper and ink. Off-white background, near-black text, one acce
 - Public titles for MFIN, LLAW, COMP7802, ECOM6016, and FITE7410C.
 - The public email or profile link.
 - A custom domain, after the `github.io` site is up.
+
+## Where the enterprise exercise lives
+
+The public pages stay the static files described above. The Cloudflare service exercise is in `platform/`, and the review that keeps it separate from these pages is in [docs/architecture.md](docs/architecture.md). The pages do not call that API.

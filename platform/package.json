@@ -1,0 +1,20 @@
+{
+  "name": "platform",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.3",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "preview": "vite-node scripts/preview.ts"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20251008.0",
+    "typescript": "^5.9.2",
+    "vite-node": "^3.2.4",
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@platform/inquiry",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@platform/contracts": "workspace:*",
+    "@platform/observability": "workspace:*"
+  }
+}
