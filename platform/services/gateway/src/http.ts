@@ -25,6 +25,28 @@ function json(status: number, body: unknown, correlationId: string): Response {
   });
 }
 
+async function readInquiryPayload(
+  request: Request,
+): Promise<unknown | "unsupported" | "invalid-json"> {
+  const contentType = request.headers.get("content-type") ?? "";
+  if (contentType.includes("application/json")) {
+    try {
+      return await request.json();
+    } catch {
+      return "invalid-json";
+    }
+  }
+  if (contentType.includes("application/x-www-form-urlencoded")) {
+    const params = new URLSearchParams(await request.text());
+    return {
+      subject: params.get("subject") ?? "",
+      email: params.get("email") ?? "",
+      message: params.get("message") ?? "",
+    };
+  }
+  return "unsupported";
+}
+
 function correlationOf(request: Request): string {
   const header = request.headers.get("x-correlation-id");
   const parsed = correlationIdSchema.safeParse(header);
@@ -78,18 +100,15 @@ export async function handleRequest(
     }
 
     if (request.method === "POST" && url.pathname === "/api/inquiries") {
-      const contentType = request.headers.get("content-type") ?? "";
-      if (!contentType.includes("application/json")) {
-        return json(415, { error: "UNSUPPORTED_MEDIA_TYPE", correlationId }, correlationId);
-      }
       const idempotencyKey = request.headers.get("idempotency-key");
       if (!idempotencyKey) {
         return json(400, { error: "IDEMPOTENCY_KEY_REQUIRED", correlationId }, correlationId);
       }
-      let payload: unknown;
-      try {
-        payload = await request.json();
-      } catch {
+      const payload = await readInquiryPayload(request);
+      if (payload === "unsupported") {
+        return json(415, { error: "UNSUPPORTED_MEDIA_TYPE", correlationId }, correlationId);
+      }
+      if (payload === "invalid-json") {
         return json(400, { error: "INVALID_JSON", correlationId }, correlationId);
       }
       const body = submitInquirySchema.safeParse(normalizeInquiryInput(payload));

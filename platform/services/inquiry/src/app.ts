@@ -15,7 +15,7 @@ export type InquiryStatus = "accepted" | "processed";
 export interface InquiryRecord {
   id: string;
   idempotencyKey: string;
-  name: string;
+  subject: string;
   email: string;
   message: string;
   status: InquiryStatus;
@@ -95,7 +95,7 @@ export async function submitInquiry(
   const inquiry: InquiryRecord = {
     id: deps.ids(),
     idempotencyKey: call.idempotencyKey,
-    name: body.name,
+    subject: body.subject,
     email: body.email,
     message: body.message,
     status: "accepted",

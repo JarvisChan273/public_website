@@ -92,7 +92,7 @@ describe("gateway", () => {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          name: "Ada",
+          subject: "Hello",
           email: "ada@example.com",
           message: "This message must stay out of the response.",
         }),
@@ -110,7 +110,7 @@ describe("gateway", () => {
           "x-correlation-id": "33333333-3333-4333-8333-333333333333",
         },
         body: JSON.stringify({
-          name: "Ada",
+          subject: "Hello",
           email: "ada@example.com",
           message: "This message must stay out of the response.",
         }),
@@ -135,7 +135,40 @@ describe("gateway", () => {
     const text = await accepted.text();
     expect(text).not.toContain("ada@example.com");
     expect(text).not.toContain("stay out of the response");
+    expect(text).not.toContain("Hello");
     expect(calls).toBe(1);
+  });
+
+  it("accepts a browser form body", async () => {
+    let subject = "";
+    const response = await handleRequest(
+      request("/api/inquiries", {
+        method: "POST",
+        headers: {
+          "content-type": "application/x-www-form-urlencoded",
+          "idempotency-key": "idem-key-002",
+        },
+        body: new URLSearchParams({
+          subject: "  From the form  ",
+          email: "ada@example.com",
+          message: "A long enough note from the form.",
+        }),
+      }),
+      {
+        content: content(),
+        inquiry: inquiry({
+          async submit(input) {
+            subject = input.subject;
+            return {
+              id: "11111111-1111-4111-8111-111111111111",
+              status: "accepted",
+            };
+          },
+        }),
+      },
+    );
+    expect(response.status).toBe(202);
+    expect(subject).toBe("From the form");
   });
 
   it("hides internal failures", async () => {

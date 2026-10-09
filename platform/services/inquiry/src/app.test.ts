@@ -6,7 +6,7 @@ import { InvalidRequest } from "./errors";
 import { MemoryInquiryRepository } from "./memory";
 
 const input: SubmitInquiry = {
-  name: "Ada Lovelace",
+  subject: "A note about the site",
   email: "ada@example.com",
   message: "Please keep this message out of the logs.",
 };
@@ -63,6 +63,7 @@ describe("submitInquiry", () => {
     expect(repo.outbox[0]?.published).toBe(true);
     expect(JSON.stringify(logs)).not.toContain(input.email);
     expect(JSON.stringify(logs)).not.toContain(input.message);
+    expect(JSON.stringify(logs)).not.toContain(input.subject);
   });
 
   it("returns the original id when the same key is repeated", async () => {

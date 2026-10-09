@@ -1,7 +1,7 @@
 CREATE TABLE inquiries (
   id TEXT PRIMARY KEY,
   idempotency_key TEXT NOT NULL UNIQUE,
-  name TEXT NOT NULL,
+  subject TEXT NOT NULL,
   email TEXT NOT NULL,
   message TEXT NOT NULL,
   status TEXT NOT NULL,

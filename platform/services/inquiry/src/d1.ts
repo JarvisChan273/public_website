@@ -5,7 +5,7 @@ import { UniqueConflict } from "./errors";
 interface InquiryRow {
   id: string;
   idempotency_key: string;
-  name: string;
+  subject: string;
   email: string;
   message: string;
   status: "accepted" | "processed";
@@ -25,7 +25,7 @@ function toInquiry(row: InquiryRow): InquiryRecord {
   return {
     id: row.id,
     idempotencyKey: row.idempotency_key,
-    name: row.name,
+    subject: row.subject,
     email: row.email,
     message: row.message,
     status: row.status,
@@ -61,13 +61,13 @@ export class D1InquiryRepository implements InquiryRepository {
         this.db
           .prepare(
             `INSERT INTO inquiries
-              (id, idempotency_key, name, email, message, status, correlation_id, created_at)
+              (id, idempotency_key, subject, email, message, status, correlation_id, created_at)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
           )
           .bind(
             inquiry.id,
             inquiry.idempotencyKey,
-            inquiry.name,
+            inquiry.subject,
             inquiry.email,
             inquiry.message,
             inquiry.status,

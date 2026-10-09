@@ -13,7 +13,7 @@ export const publishedPageSchema = z.object({
 export type PublishedPage = z.infer<typeof publishedPageSchema>;
 
 export const submitInquirySchema = z.object({
-  name: z.string().min(1).max(80),
+  subject: z.string().min(1).max(120),
   email: z.string().email().max(120),
   message: z.string().min(10).max(2000),
 });
@@ -57,7 +57,7 @@ export function normalizeInquiryInput(input: unknown): unknown {
   if (!input || typeof input !== "object") return input;
   const record = input as Record<string, unknown>;
   return {
-    name: typeof record.name === "string" ? record.name.trim() : record.name,
+    subject: typeof record.subject === "string" ? record.subject.trim() : record.subject,
     email: typeof record.email === "string" ? record.email.trim() : record.email,
     message: typeof record.message === "string" ? record.message.trim() : record.message,
   };

@@ -192,7 +192,75 @@ section p,
   font-size: 0.85rem;
 }
 
+.contact-form {
+  display: grid;
+  gap: 0.35rem;
+  max-width: 38rem;
+  margin-top: 1.5rem;
+}
+
+.contact-form label {
+  margin-top: 0.85rem;
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+  font-size: 0.85rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.7rem 0.75rem;
+  color: var(--ink);
+  background: var(--door);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  font: inherit;
+  font-size: 1rem;
+}
+
+.contact-form textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+.contact-form button {
+  margin-top: 1rem;
+  justify-self: start;
+  padding: 0.7rem 1.25rem;
+  color: var(--paper);
+  background: var(--ink);
+  border: 0;
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.contact-form button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.contact-form button:focus-visible {
+  outline: 3px solid var(--paper);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--accent);
+}
+
+.hint,
+.form-status {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+  font-size: 0.92rem;
+}
+
+.form-status:empty {
+  display: none;
+}
+
 a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
 .skip:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;

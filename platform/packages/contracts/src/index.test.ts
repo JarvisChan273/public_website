@@ -6,7 +6,7 @@ import {
 } from "./index";
 
 const validInquiry = {
-  name: "Ada Lovelace",
+  subject: "A note about the site",
   email: "ada@example.com",
   message: "Hello, this is a real note.",
 };
@@ -15,7 +15,7 @@ describe("inquiry contract", () => {
   it("accepts a trimmed inquiry", () => {
     const parsed = submitInquirySchema.parse(
       normalizeInquiryInput({
-        name: "  Ada Lovelace  ",
+        subject: "  A note about the site  ",
         email: " ada@example.com ",
         message: "  Hello, this is a real note.  ",
       }),

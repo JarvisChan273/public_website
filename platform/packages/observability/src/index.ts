@@ -6,7 +6,7 @@ export interface LogEvent {
   fields?: Record<string, LogField>;
 }
 
-const forbiddenFields = new Set(["email", "message", "name", "body"]);
+const forbiddenFields = new Set(["email", "message", "subject", "name", "body"]);
 
 export function createCorrelationId(): string {
   return crypto.randomUUID();

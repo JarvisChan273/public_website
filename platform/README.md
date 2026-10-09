@@ -40,6 +40,6 @@ pnpm exec wrangler d1 migrations apply studio-inquiry --local -c services/inquir
 - `GET /api/ready`
 - `GET /api/pages`
 - `GET /api/pages/:slug`
-- `POST /api/inquiries` with `Content-Type: application/json` and `Idempotency-Key`
+- `POST /api/inquiries` with JSON or a form body, plus `Idempotency-Key`. Fields are `subject`, `email`, and `message`.
 
-The static site does not call these routes yet.
+The Contact page posts to that route. From this folder, `pnpm preview` serves the static site and the gateway together on `http://127.0.0.1:4173`. Notes stay in memory for that process. A deployed gateway on the same domain is what stores them.

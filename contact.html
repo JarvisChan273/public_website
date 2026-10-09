@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact · Jarvis Chan</title>
+  <meta name="description" content="Send Jarvis Chan a subject, an email address, and a message.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site-header">
+    <a class="name" href="index.html">Jarvis Chan</a>
+    <nav aria-label="Primary">
+      <a href="index.html">Entrance</a>
+      <a href="background.html">Background</a>
+      <a href="learning.html">Current learning</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+  </header>
+  <main id="content">
+    <p class="kicker">Contact</p>
+    <h1>Contact</h1>
+    <p class="lead">Send a note. Include a subject, the email to reply to, and the message.</p>
+    <form class="contact-form" id="contact-form" action="/api/inquiries" method="post">
+      <label for="subject">Subject</label>
+      <input id="subject" name="subject" type="text" required maxlength="120" autocomplete="off">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required maxlength="120" autocomplete="email" inputmode="email">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required minlength="10" maxlength="2000" rows="8"></textarea>
+      <p class="hint">At least 10 characters.</p>
+      <button type="submit">Send</button>
+      <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
+    </form>
+    <noscript>
+      <p class="hint">Sending the note needs JavaScript so it can reach the contact service.</p>
+    </noscript>
+  </main>
+  <footer class="site-footer">
+    <p>Jarvis Chan</p>
+  </footer>
+  <script src="script.js"></script>
+  <script src="contact.js"></script>
+</body>
+</html>

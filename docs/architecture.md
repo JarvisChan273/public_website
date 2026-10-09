@@ -1,6 +1,6 @@
 # Validated architecture
 
-Traditional Chinese summary: 公開網站維持三個靜態頁。企業架構練習放在 `platform/`，用 Cloudflare Workers、service binding、D1、KV 與 Queues 模擬邊界、契約、冪等與 outbox。兩層不要合成一個框架網站。
+Traditional Chinese summary: 公開網站是靜態頁，另有一頁聯絡表單。企業架構練習放在 `platform/`，用 Cloudflare Workers、service binding、D1、KV 與 Queues 模擬邊界、契約、冪等與 outbox。表單在 gateway 部署到同一網域後才會把訊息寫進 D1。
 
 ## Verdict
 
@@ -8,12 +8,12 @@ The public site and the enterprise exercise are two layers.
 
 | Layer | What it is | Where it lives |
 | --- | --- | --- |
-| Public site | One entrance, Background, Current learning | Repository root, static files, GitHub Pages |
+| Public site | Entrance, Background, Current learning, Contact | Repository root, static files, GitHub Pages |
 | Enterprise exercise | Gateway, content, and inquiry services | `platform/` |
 
 This split is the result of checking the earlier Cloudflare sketch against `PLAN.md` and against how Cloudflare actually bills and delivers these products.
 
-`PLAN.md` already fixes the public information architecture: static HTML, no framework, no build step, no third page, and no stored messages until a public contact line is chosen. Replacing that with Astro, Cloudflare Pages, and a contact form would throw away a decision that is already merged.
+`PLAN.md` fixes the public information architecture: static HTML and no build step. Contact is a fourth static page. Its notes are stored by the inquiry service when the gateway is on the same domain.
 
 The enterprise exercise is still worth building. It is the hands-on version of the simulator and the Cloudflare tutorial: real boundaries, real contracts, and tests that run without a Cloudflare account.
 
@@ -23,7 +23,7 @@ The enterprise exercise is still worth building. It is the hands-on version of t
 | --- | --- | --- |
 | Astro on Cloudflare Pages | Conflicts with the static, no-build site plan | Keep hand-written HTML |
 | Host the biography on Workers | The static pages are the source of truth | Content service stores summaries only |
-| Public contact form in this revision | A form would store visitor email before a public contact line exists | Inquiry service exists, and the HTML does not call it |
+| Public contact form | The visitor now has a Contact page with subject, email, and message | `contact.html` posts to `POST /api/inquiries`; storage starts when the gateway shares the site’s domain |
 | D1 write and Queue send as one step | They are not one transaction | Transactional outbox in D1, then publish |
 | Full inquiry body on the queue | Free-tier retention is 24 hours, and retries would copy personal data | Queue message carries ids only |
 | KV as the content database | KV is eventually consistent | D1 is the source of truth; KV is a write-through cache |
@@ -37,7 +37,7 @@ The enterprise exercise is still worth building. It is the hands-on version of t
 ```text
 Visitor
   └── static pages (GitHub Pages)
-        index.html · background.html · learning.html
+        index.html · background.html · learning.html · contact.html
 
 API client (not linked from the pages yet)
   └── studio-gateway          the only public Worker
@@ -71,7 +71,7 @@ The first config is the HTTP process. The other two are reachable through servic
 
 `GET /api/pages` and `GET /api/pages/:slug` read published content. The gateway rejects a slug that is not `a-z`, `0-9`, or `-`.
 
-`POST /api/inquiries` requires `Content-Type: application/json` and `Idempotency-Key`. The body is validated in the gateway before the service call, and validated again inside the service. The response is `202` with `{ id, status: "accepted" }`. It does not echo the email or the message. Logs record the inquiry id and the correlation id.
+`POST /api/inquiries` accepts JSON or a browser form body. The fields are `subject`, `email`, and `message`. It requires `Idempotency-Key`. The body is validated in the gateway before the service call, and validated again inside the service. The response is `202` with `{ id, status: "accepted" }`. It does not echo the subject, the email, or the message. Logs record the inquiry id and the correlation id. The Contact page sends this request and keeps the same key if the network fails, so a retry does not create a second note.
 
 A failed queue send still returns `202`. The outbox row stays unpublished, and the scheduled sweep retries it. The consumer treats a second delivery as success when the row is already `processed`. One queue has one consumer. A dead-letter queue is named for messages that exhaust retries.
 
@@ -88,9 +88,16 @@ A failed queue send still returns `202`. The outbox row stays unpublished, and t
 1. Turn on GitHub Pages for the repository root.
 2. Put the domain on Cloudflare DNS when a custom domain is wanted. Point the site at GitHub Pages. Use Full SSL. A Worker route such as `example.com/api/*` is more specific than the site and is the place the gateway attaches.
 3. Create the two D1 databases, the KV namespace, and both queues. Replace the placeholder ids. Apply the migrations. Deploy content, inquiry, then gateway.
-4. Add a contact form on the entrance only after the public email or profile is chosen. It posts to the gateway. It is not a new page.
-5. Email Routing can forward a notification to a verified mailbox. Arbitrary outbound mail is a paid Workers feature.
-6. R2 fits when a page actually has an uploaded file. Cloudflare Access fits when an admin writer exists.
+4. Deploy the gateway on the same domain so Contact can store notes. Email Routing can then forward a notification to a verified mailbox. Arbitrary outbound mail is a paid Workers feature.
+5. R2 fits when a page actually has an uploaded file. Cloudflare Access fits when an admin writer exists.
+
+## Page views
+
+Count visits at the edge, after the site is on Cloudflare. GitHub Pages cannot increment a counter by itself.
+
+Use Cloudflare Web Analytics when the number stays in a dashboard. Add its beacon once. It does not use cookies, and it does not print a total on the page.
+
+Print a total on the page only if that number is part of the public site. Add a KV namespace `page-views`, keyed by the path. A Worker on `POST /api/views` increments that key. Each static page sends the path with `navigator.sendBeacon` after load, and remembers the path in `sessionStorage` so one tab counts once. KV is eventually consistent, so the displayed total can lag. Bots and prefetches will inflate it. Keep this counter out of the inquiry database.
 
 ## Map to production concerns
 
