@@ -1,139 +1,138 @@
 # Public website plan
 
-A public site with one entrance and two subsections. The entrance is the decision point. The subsections are the only two places a visitor can go.
+A public site with one entrance and two subpages.
+
+| Place | Page | Address |
+| --- | --- | --- |
+| Entrance | Who Jarvis Chan is, and the two doors | `/` |
+| Background | Education, credentials, and the path so far | `/background` |
+| Current learning | What he is studying now | `/learning` |
+
+This revision replaces the earlier services-and-notes split. The site introduces Jarvis. It does not sell packages.
 
 ## Recommendation
 
-Ship one page first. The entrance states who the site is for and offers two doors. Each door is a subsection on the same page, with a stable address reserved for later:
+Two real pages, linked from the entrance. Background is the record of what is already done. Current learning is only what is in progress.
 
-| Place | Address now | Address later, if it grows |
-| --- | --- | --- |
-| Entrance | `/` | `/` |
-| Services | `/#services` | `/services` |
-| Notes | `/#notes` | `/notes` |
-
-Contact sits on the entrance and is repeated at the end of each subsection. It is not a third destination.
-
-This matches a short public site: a visitor understands the offer, picks work or reading, and can write in. Separate pages are a later cut, not a different product.
-
-## Ideas
-
-### 1. The lobby (recommended)
-
-The entrance is a short statement and two doors.
-
-- **Services** is fixed-scope advisory: SIEM cost, detection, and audit evidence, delivered remotely.
-- **Notes** is public writing and small labs. It is the proof that the services page can point at. It never uses client or employer material.
-
-Why this one: the site has to do two jobs, sell a defined service and show the work in public. Two subsections keep those jobs apart. A portfolio grid, an about page, and a blog would ask for content that does not exist yet.
-
-### 2. The bare choice
-
-The entrance is only the two doors, with almost no other copy. Services carries the offer. Notes carries the writing.
-
-Use this if the entrance statement starts to repeat the services page. Do not start here. An empty notes page would make the whole site look unfinished.
-
-### 3. Two languages as the two subsections
-
-One door in English, one in Traditional Chinese.
-
-Reject this for the first version. Language is a layer on both subsections, not a section of its own. English is the default because that is the language of the offer. A short Chinese line can sit under the entrance statement later, after the English page is live.
+The entrance is short. It gives the name, one sentence, and the two doors. A visitor who wants history opens Background. A visitor who wants the present opens Current learning.
 
 ## What the first version contains
 
 ### Entrance
 
 - Name: Jarvis Chan.
-- One sentence: who it helps, what changes, and that the work is remote from Hong Kong.
-- Two doors. Each door is a title, one sentence, and a link into that subsection.
-- A short “how an engagement works” line: remote, fixed scope, usually two to four weeks.
-- A contact form.
+- One sentence that points at both pages: the completed degree, and the study underway now.
+- Two doors. Each door is a title, one sentence, and a link to that page.
+- A way to reach him, once he chooses a public email or a public profile link.
 
 Working sentence, to be confirmed before publish:
 
-> I help mid-size financial and regulated firms cut Splunk and SIEM cost and pass security audits. Remote, from Hong Kong.
+> Information engineering graduate, now studying financial technology and data analytics, with a focus on cybersecurity.
 
-### Services
+### Background
 
-A list, not a grid of icons. Each row has the package name, the outcome, and what the client leaves with. No hour counts on the page. Prices are either omitted or shown as “fixed price, scoped on a short call” until real numbers are chosen.
+A short page, read from top to bottom. Dates are years, not a full CV.
 
-| Package | Outcome | What they leave with |
+**Education**
+
+- Bachelor of Engineering in Information Engineering, City University of Hong Kong.
+
+**Credential already recorded as obtained**
+
+- ISC2 Certified in Cybersecurity (CC).
+
+**Direction**
+
+A few lines in his own words, once confirmed: cybersecurity, networking, fintech, data analysis, and machine learning. The old public-profile drafts say this. The live sentence should be the one he wants read now.
+
+**Slots he fills before publish**
+
+- Roles and organisations he is willing to name in public.
+- Any other credential he wants listed as earned. Study that is still in progress stays on the learning page.
+
+### Current learning
+
+The top of the page is what is active. Older courses in the same degree sit underneath, in a shorter list, so the page still reads as “now.”
+
+**Now**
+
+| Item | What it is | Status on the page |
 | --- | --- | --- |
-| Splunk Health Check | A clear view of architecture and index cost | A written report and a prioritized fix list |
-| Licence Cost Audit | Less wasted licence and less noisy data | A usage readout and a reduction plan |
-| Detection Pack | Coverage mapped to real attacker behavior | A set of alerts plus the notes to run them |
-| Migration Runbook | An upgrade or move with a way back | A plan, a rollback, and a rehearsal list |
-| Firewall and DLP Review | A smaller, ordered rule set | A risk ranking and a cleanup route |
-| Audit Readiness | Evidence a reviewer can follow | An access review, an evidence pack, and SOP templates |
-| Advisory retainer | A named person for policy, risk, and an annual review | A monthly cadence and a written record |
+| MSc in Financial Technology and Data Analytics, The University of Hong Kong | The degree in progress (FTDA) | Year 2 |
+| FITE7407 Securities transaction banking | This term’s course: transaction banking, securities, custody, and regulatory reporting | In term |
+| CISM (ISACA) | Certified Information Security Manager, exam study | Studying |
+| Final-year project | 2026 project | Title still open |
 
-Out of scope, said in one line: on-site work, and any promise that an audit will pass.
+**Also in 2026, confirm whether it is still active**
 
-### Notes
+- Microsoft AZ-500. Listed among 2026 courses. The page names it only after the status is clear: studying, scheduled, or finished.
 
-Public writing and labs only. The first version may list topics that are not written yet, and it must label them as upcoming. It must not invent finished projects.
+**Earlier in this degree**
 
-First topics, in the order they support the services page:
+Shown as completed coursework, under the current block, with the public course title:
 
-1. Where Splunk licence cost actually comes from.
-2. A small detection lab with no production data.
-3. What an audit evidence pack contains.
+- COMP7103 Data mining
+- COMP7409 Machine learning in trading and finance
+- FITE7409 Blockchain and cryptocurrency
 
-Each published note is a title, a date, a few paragraphs, and a link. A lab links to its own public repository.
+These three titles are the public catalogue titles for those codes. The page also has room for the remaining first-year courses once their public titles are confirmed: the finance course filed as MFIN, the law course filed as LLAW, COMP7802, ECOM6016, and FITE7410C.
 
-### Contact
+Each current item is a name, one sentence on why it is on the desk, and a status word. The page does not host lecture notes, past papers, or exam answers.
 
-Fields: name, email, organization, which package (or “not sure”), and a message.
+### Reach me
 
-After a successful send, the form is replaced by “Sent.” and a control that returns to the entrance. The message goes to an inbox Jarvis reads. It is not stored in a spreadsheet in this repository.
+One line on the entrance: a public email, a public profile, or both. Messages are not stored in this repository. A form can be added later if the line is not enough. It is not a third page.
 
-## What this version leaves out
+## What stays off the site
 
-- A separate About, Portfolio, Blog, or Contact page.
-- Placeholder projects presented as finished work.
-- Client names, screenshots, logs, or anything from an employer.
-- A biography, photo, or certification list until those facts are supplied.
-- A second language, a newsletter, and a payment flow.
+- Service packages, prices, and a consulting pitch.
+- Placeholder jobs or projects written as if they were finished.
+- Employer material, client names, logs, or screenshots.
+- Lecture notes, past papers, and exam-prep writeups.
+- A credential listed as passed when the record only shows that the course was studied.
 
 ## How it will be built
 
 Static files in this repository. No framework and no build step.
 
 ```
-index.html     entrance and both subsections
-styles.css     shared layout
-script.js      menu, in-page links, form success state
+index.html        entrance
+background.html   background
+learning.html     current learning
+styles.css        shared layout
+script.js         navigation state
 ```
 
-GitHub Pages serves the repository root. The first public URL is the `github.io` address. A custom domain is a DNS change after the page is up, not a blocker.
+The same header sits on every page: the name, and links to Entrance, Background, and Current learning. The current page is marked in the nav.
 
-The form posts to a hosted form endpoint (Formspree or an equivalent) configured with the public inbox. The endpoint key is a publishable form id, not a secret. There is no PHP or Node server and no Excel file.
+GitHub Pages serves the repository root. The first public URL is the `github.io` address. A custom domain can wait until the pages are up.
 
-Visual direction: paper and ink. Off-white background, near-black text, one accent color. The entrance sentence is the largest type on the page. Packages are rows. Notes are a short reading list. The layout works at a narrow phone width and at a desktop width. Navigation links are real buttons with a visible focus state.
+Visual direction: paper and ink. Off-white background, near-black text, one accent color. The entrance sentence is the largest type on the site. Background reads as a short biography. Current learning reads as a list with the active items first. Both pages work at a narrow phone width and at a desktop width. Navigation links are real controls with a visible focus state.
 
 ## Build order
 
-1. Confirm the entrance sentence, the public inbox, and whether any package shows a price.
-2. Write `index.html` with the entrance, `#services`, `#notes`, and the form.
+1. Confirm the entrance sentence, the public contact line, which roles may be named, and the status of AZ-500 and the final-year project.
+2. Write the three HTML pages from the sections above.
 3. Write `styles.css` for the desktop layout and a width around 375px.
-4. Write `script.js` for in-page links and the sent state.
-5. Point the form at the inbox and send one real test message.
-6. Turn on GitHub Pages from the repository root.
-7. Read the live page on a phone-sized window and a desktop window. Check both doors, the form, and the return to the entrance.
+4. Write `script.js` so the nav shows which page is open.
+5. Turn on GitHub Pages from the repository root.
+6. Read the live site on a phone-sized window and a desktop window. Open both subpages from the entrance and return from each.
 
 ## Done when
 
-- The first screen is the entrance, and both subsections are reachable from it.
-- Services lists only the packages above, with outcomes rather than hours.
-- Notes labels anything unfinished as upcoming.
-- A test message arrives in the inbox, and the page shows “Sent.”
-- The page is readable at a narrow width and on a wide screen.
-- The repository contains no client data, employer material, or inbox secrets.
+- The first screen is the entrance, and both subpages are linked from it.
+- Background contains the CityU degree, the CC credential, and only the work history he has approved.
+- Current learning leads with the HKU MSc, FITE7407, and CISM, and labels the final-year project honestly.
+- Earlier courses appear under the current block.
+- Both pages are readable at a narrow width and on a wide screen.
+- The repository contains no notes, past papers, client data, or employer material.
 
 ## Open choices
 
-- Public email address for the form.
-- Show starting prices, or keep every price off the page.
-- LinkedIn or other public profiles to link.
-- Custom domain, after the `github.io` site is up.
-- The entrance sentence, if the working sentence above should change.
+- The entrance sentence.
+- Which roles and organisations appear on Background.
+- Whether any studied-but-not-yet-certified item (PCNSA, CISSP coursework, AZ-500) appears, and on which page.
+- The public title and status of the 2026 final-year project.
+- Public titles for MFIN, LLAW, COMP7802, ECOM6016, and FITE7410C.
+- The public email or profile link.
+- A custom domain, after the `github.io` site is up.
