@@ -40,7 +40,11 @@
         button.disabled = false;
         if (result.status === 202 && result.body && result.body.id) {
           status.textContent = "Received. Reference " + result.body.id + ".";
-          form.reset();
+          var fields = form.querySelectorAll("input, textarea");
+          for (var i = 0; i < fields.length; i += 1) {
+            fields[i].value = "";
+            fields[i].defaultValue = "";
+          }
           idempotencyKey = "";
           return;
         }
